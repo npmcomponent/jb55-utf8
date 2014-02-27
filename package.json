@@ -9,7 +9,8 @@
   "dependencies": {},
   "devDependencies": {
     "component": "*",
-    "component-test": "*"
+    "component-test": "*",
+    "mocha": "*"
   },
   "testling": {
     "harness": "mocha",

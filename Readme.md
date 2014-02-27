@@ -3,6 +3,8 @@
 
   encode/decode utf8 strings to/from base64
 
+  [![browser support](https://ci.testling.com/jb55/utf8.png)](https://ci.testling.com/jb55/utf8)
+
 ## Installation
 
   Install with [component(1)](http://component.io):
@@ -11,13 +13,15 @@
 
 ## API
 
-    var utf8 = require('utf8')
+```js
+var utf8 = require('utf8')
 
-    var encoded = utf8.encode("Foo © bar 𝌆 baz ☃ qu");
-    // encoded === "Rm9vIMKpIGJhciDwnYyGIGJheiDimIMgcXU="
+var encoded = utf8.encode("Foo © bar 𝌆 baz ☃ qu");
+// encoded === "Rm9vIMKpIGJhciDwnYyGIGJheiDimIMgcXU="
 
-    var decoded = utf8.decode(encoded);
-    // decoded === "Foo © bar 𝌆 baz ☃ qu";
+var decoded = utf8.decode(encoded);
+// decoded === "Foo © bar 𝌆 baz ☃ qu";
+```
 
 ## License
 
