@@ -206,6 +206,119 @@ require.relative = function(parent) {
 
   return localRequire;
 };
+require.register("component-bind/index.js", Function("exports, require, module",
+"/**\n\
+ * Slice reference.\n\
+ */\n\
+\n\
+var slice = [].slice;\n\
+\n\
+/**\n\
+ * Bind `obj` to `fn`.\n\
+ *\n\
+ * @param {Object} obj\n\
+ * @param {Function|String} fn or string\n\
+ * @return {Function}\n\
+ * @api public\n\
+ */\n\
+\n\
+module.exports = function(obj, fn){\n\
+  if ('string' == typeof fn) fn = obj[fn];\n\
+  if ('function' != typeof fn) throw new Error('bind() requires a function');\n\
+  var args = slice.call(arguments, 2);\n\
+  return function(){\n\
+    return fn.apply(obj, args.concat(slice.call(arguments)));\n\
+  }\n\
+};\n\
+//@ sourceURL=component-bind/index.js"
+));
+require.register("jb55-base64/index.js", Function("exports, require, module",
+"var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';\n\
+var bind = require('bind')\n\
+\n\
+/**\n\
+ * Match a normal browsers error\n\
+ */\n\
+function InvalidCharacterError(message) {\n\
+  this.message = message;\n\
+}\n\
+InvalidCharacterError.prototype = new Error;\n\
+InvalidCharacterError.prototype.name = 'InvalidCharacterError';\n\
+\n\
+/**\n\
+ * btoa - encode a binary string to base64\n\
+ *\n\
+ * @param {String} String with binary data\n\
+ * @api public\n\
+ */\n\
+\n\
+function btoa(input) {\n\
+  var block;\n\
+  var charCode;\n\
+  var output = \"\";\n\
+  var map = chars;\n\
+  var idx = 0;\n\
+\n\
+  for (; input.charAt(idx | 0) || (map = '=', idx % 1);\n\
+         output += map.charAt(63 & block >> 8 - idx % 1 * 8)) \n\
+  {\n\
+    charCode = input.charCodeAt(idx += 3/4);\n\
+\n\
+    if (charCode > 0xFF) \n\
+      throw new InvalidCharacterError( \"'btoa' failed: The string to be encoded contains characters outside of the Latin1 range.\");\n\
+\n\
+    block = block << 8 | charCode;\n\
+  }\n\
+\n\
+  return output;\n\
+}\n\
+\n\
+/**\n\
+ * decode a base64 string to binary\n\
+ *\n\
+ * @param {String} base64 string\n\
+ * @api public\n\
+ */\n\
+\n\
+function atob(input) {\n\
+  input = input.replace(/=+$/, '');\n\
+  if (input.length % 4 == 1) {\n\
+    throw new InvalidCharacterError(\"'atob' failed: The string to be decoded is not correctly encoded.\");\n\
+  }\n\
+  var output = \"\";\n\
+\n\
+  for (\n\
+    // initialize result and counters\n\
+    var bc = 0, bs, buffer, idx = 0;\n\
+    // get next character\n\
+    buffer = input.charAt(idx++);\n\
+    // character found in table? initialize bit storage and add its ascii value;\n\
+    ~buffer && (bs = bc % 4 ? bs * 64 + buffer : buffer,\n\
+      // and if not first of each 4 characters,\n\
+      // convert the first 8 bits to one ascii character\n\
+      bc++ % 4) ? output += String.fromCharCode(255 & bs >> (-2 * bc & 6)) : 0\n\
+  ) {\n\
+    // try to find character in table (0-63, not found => -1)\n\
+    buffer = chars.indexOf(buffer);\n\
+  }\n\
+  return output;\n\
+}\n\
+\n\
+var watob = window.atob? bind(null, window.atob) : null;\n\
+var wbtoa = window.btoa? bind(null, window.btoa) : null;\n\
+\n\
+var exports = module.exports;\n\
+exports.atob = exports.decode = watob || atob;\n\
+exports.btoa = exports.encode = wbtoa || btoa;\n\
+\n\
+/**\n\
+ * Export polyfills for testing\n\
+ */\n\
+var poly = exports.poly = {};\n\
+poly.atob = poly.decode = atob;\n\
+poly.btoa = poly.encode = btoa;\n\
+//@ sourceURL=jb55-base64/index.js"
+));
 require.register("jb55-expect.js/index.js", Function("exports, require, module",
 "(function (global, module) {\n\
 \n\
@@ -1518,6 +1631,8 @@ require.register("utf8/index.js", Function("exports, require, module",
  * for more information\n\
  */\n\
 \n\
+var b64 = require('base64');\n\
+\n\
 exports = module.exports;\n\
 \n\
 /**\n\
@@ -1528,7 +1643,7 @@ exports = module.exports;\n\
  */\n\
 \n\
 exports.encode = function(str){\n\
-  return window.btoa(unescape(encodeURIComponent(str)));\n\
+  return b64.encode(unescape(encodeURIComponent(str)));\n\
 };\n\
 \n\
 /**\n\
@@ -1539,10 +1654,16 @@ exports.encode = function(str){\n\
  */\n\
 \n\
 exports.decode = function(str){\n\
-  return decodeURIComponent(escape(window.atob(str)));\n\
+  return decodeURIComponent(escape(b64.decode(str)));\n\
 };\n\
 //@ sourceURL=utf8/index.js"
 ));
+require.alias("jb55-base64/index.js", "utf8/deps/base64/index.js");
+require.alias("jb55-base64/index.js", "utf8/deps/base64/index.js");
+require.alias("jb55-base64/index.js", "base64/index.js");
+require.alias("component-bind/index.js", "jb55-base64/deps/bind/index.js");
+
+require.alias("jb55-base64/index.js", "jb55-base64/index.js");
 require.alias("jb55-expect.js/index.js", "utf8/deps/expect/index.js");
 require.alias("jb55-expect.js/index.js", "utf8/deps/expect/index.js");
 require.alias("jb55-expect.js/index.js", "expect/index.js");
