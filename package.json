@@ -1,0 +1,22 @@
+{
+  "name": "utf8",
+  "description": "utf8 encode/decode component",
+  "version": "0.0.0",
+  "repository": {
+    "url": "git://github.com/jb55/utf8.git"
+  },
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "component-test": "*"
+  },
+  "testling": {
+    "harness": "mocha",
+    "browsers": [
+      "ie8", "ie9",
+      "firefox/15", "chrome/22", "opera/12", "safari/5.1"
+    ],
+    "preprocess": "make build",
+    "scripts": ["build/*.js", "test/*.js"]
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "utf8",
+  "repo": "jb55/utf8",
+  "description": "encode/decode utf8 strings to/from base64",
+  "version": "0.0.1",
+  "keywords": [],
+  "dependencies": {},
+  "development": {
+    "jb55/expect.js": "*"
+  },
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
