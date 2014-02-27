@@ -4,7 +4,9 @@
   "description": "encode/decode utf8 strings to/from base64",
   "version": "0.0.1",
   "keywords": [],
-  "dependencies": {},
+  "dependencies": {
+    "jb55/base64": "*"
+  },
   "development": {
     "jb55/expect.js": "*"
   },

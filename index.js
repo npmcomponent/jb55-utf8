@@ -4,6 +4,8 @@
  * for more information
  */
 
+var b64 = require('base64');
+
 exports = module.exports;
 
 /**
@@ -14,7 +16,7 @@ exports = module.exports;
  */
 
 exports.encode = function(str){
-  return window.btoa(unescape(encodeURIComponent(str)));
+  return b64.encode(unescape(encodeURIComponent(str)));
 };
 
 /**
@@ -25,5 +27,5 @@ exports.encode = function(str){
  */
 
 exports.decode = function(str){
-  return decodeURIComponent(escape(window.atob(str)));
+  return decodeURIComponent(escape(b64.decode(str)));
 };
