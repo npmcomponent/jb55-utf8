@@ -3,7 +3,7 @@
  * for more information
  */
 
-var b64 = require('base64');
+var b64 = require('jb55-base64');
 
 exports = module.exports;
 

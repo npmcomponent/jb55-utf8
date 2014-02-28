@@ -1,30 +1,11 @@
 {
-  "name": "utf8",
-  "description": "utf8 encode/decode component",
-  "version": "0.0.0",
-  "repository": {
-    "url": "git://github.com/jb55/utf8.git"
-  },
+  "name": "jb55-utf8",
+  "description": "encode/decode utf8 strings to/from base64",
+  "version": "0.0.1",
+  "keywords": [],
   "main": "index.js",
-  "dependencies": {},
-  "devDependencies": {
-    "component": "*",
-    "component-test": "*",
-    "mocha": "*"
+  "dependencies": {
+    "jb55-base64": "git://github.com/npmcomponent/jb55-base64.git"
   },
-  "testling": {
-    "harness": "mocha",
-    "browsers": [
-      "ie/6..latest",
-      "chrome/22..latest",
-      "firefox/16..latest",
-      "safari/latest",
-      "opera/11.0..latest",
-      "iphone/6",
-      "ipad/6",
-      "android-browser/latest"
-    ],
-    "preprocess": "make build",
-    "scripts": ["build/*.js", "test/*.js"]
-  }
+  "license": "MIT"
 }
